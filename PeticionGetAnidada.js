@@ -23,23 +23,24 @@ function MuestraLista(){
 }
 
 function MuestraPeliculas(lista){
-   // var peliculas=[]
+    //var listapelis=[]
     return new Promise((resolve,reject)=>{
-        for(var i=0; i<lista.length; i++){
-            console.log(`------------${lista[i]}----------------`)
-            request.get(lista[i],(error, response, body)=>{
-                if(response.statusCode==200){
-                    let json=JSON.parse(body)
-                    console.log(json.title)
-                    // peliculas.push(json.title)
-                    // resolve(peliculas)
-                }
-                else {
-                    reject('Tuvimos un error :c')
-                }
- 
-            });
-        }        
+        var peliculas=lista.map((x,y,z)=>{
+        request.get(x,(error,response,body)=>{
+            console.log(`------------------${x}-------------------`)
+            if(response.statusCode==200){
+                let json=JSON.parse(body)
+                //listapelis.push(json.title)
+                console.log(json.title)
+                //resolve(json.title)
+                //resolve(listapelis)
+            }
+            else {
+                reject('Tuvimos un error :c')
+            }
+         
+        });
+        });
 
     });
 
